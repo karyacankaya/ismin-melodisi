@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>İsmin Melodisi</title>
+<meta name="description" content="Adını ve doğum tarihini yaz: harflerin bir makamda çalan kısa bir besteye, notaların bir İran halısına, doğum tarihin tarot kartlarına dönüşsün.">
+<meta name="theme-color" content="#0f1838">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-12 -12 24 24'%3E%3Cpath fill='%23f2d68c' d='M3-8A9 9 0 1 0 3 8 7 7 0 1 1 3-8Z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="js/app.js"></script>
+</head>
+<body>
+<a class="skip" href="#ana">İçeriğe geç</a>
+
+<header class="bar">
+  <a class="wordmark" href="#ana">
+    <svg viewBox="-12 -12 24 24" aria-hidden="true"><path fill="currentColor" d="M3-8A9 9 0 1 0 3 8 7 7 0 1 1 3-8Z"/></svg>
+    İsmin Melodisi
+  </a>
+  <nav aria-label="Bölümler">
+    <a href="#ana">Melodi</a>
+    <a href="#uyum">Uyum</a>
+    <a href="#rehber">Kartlar</a>
+  </nav>
+</header>
+
+<main id="ana">
+  <!-- Giriş: ad ve tarih; yazdıkça sağdaki halı canlı dokunur -->
+  <section class="hero" aria-labelledby="baslik">
+    <div class="hero-text">
+      <p class="hand hero-hand">her adın bir şarkısı var</p>
+      <h1 id="baslik">İsmin Melodisi</h1>
+      <p class="lede">Adını ve doğum tarihini yaz: harflerin bir makamda çalan kısa bir besteye, notaların bir İran halısına, doğum tarihin tarot kartlarına dönüşsün.</p>
+      <form class="ask" id="form-tek" novalidate>
+        <label>Adın
+          <input id="ad" name="ad" autocomplete="given-name" maxlength="40" required placeholder="ör. Ayşe Yılmaz">
+        </label>
+        <label>Doğum tarihin
+          <input id="tarih" name="tarih" type="date" required min="1900-01-01">
+        </label>
+        <button class="btn" type="submit">Melodimi dokur</button>
+        <p class="form-error" id="hata-tek" role="alert"></p>
+      </form>
+      <p class="note">Eğlence amaçlıdır, bilimsel bir yöntem değildir.</p>
+    </div>
+    <figure class="hero-loom" aria-label="Yazdığın addan canlı dokunan halı önizlemesi">
+      <canvas id="hero-kilim" role="img" aria-label="Addan dokunan halı önizlemesi"></canvas>
+      <figcaption class="hand" id="hero-caption">Adını yazdıkça halın dokunur</figcaption>
+    </figure>
+  </section>
+
+  <!-- Tek kişinin sonucu -->
+  <section class="result" id="sonuc" hidden aria-labelledby="sonuc-baslik">
+    <h2 id="sonuc-baslik">Senin melodin</h2>
+    <div class="result-grid">
+      <article class="page" id="kart" aria-label="Sonuç kartı">
+        <header class="page-head">
+          <h3 id="r-ad"></h3>
+          <p class="hand theme" id="r-tema"></p>
+        </header>
+        <div class="loom"><canvas id="r-kilim" role="img"></canvas></div>
+        <div class="nums" id="r-nums"></div>
+        <p class="reading" id="r-yorum"></p>
+        <p class="page-foot"><span id="r-tarot"></span><span class="hand">Eğlence amaçlıdır, bilimsel bir yöntem değildir.</span></p>
+      </article>
+
+      <div class="panel">
+        <div class="player">
+          <button class="seal" id="cal-tek" type="button" aria-pressed="false" aria-label="Melodiyi çal">
+            <svg class="swirl" viewBox="-100 -100 200 200" aria-hidden="true"></svg>
+            <svg class="moon" viewBox="-12 -12 24 24" aria-hidden="true"><path fill="currentColor" d="M3-8A9 9 0 1 0 3 8 7 7 0 1 1 3-8Z"/></svg>
+            <span class="label">ÇAL</span>
+          </button>
+          <div class="player-info">
+            <p class="letters hand" id="r-harfler" aria-hidden="true"></p>
+            <p class="section-name hand" id="r-bolum" aria-live="polite">&nbsp;</p>
+            <p class="music-info" id="r-muzik"></p>
+            <label class="check"><input type="checkbox" id="dongu-tek" checked> Döngüde çal</label>
+          </div>
+        </div>
+
+        <div class="share">
+          <h3>Paylaş</h3>
+          <label class="check"><input type="checkbox" id="tarih-linke"> Doğum tarihimi de linke ekle</label>
+          <p class="hint" id="link-aciklama">Link adını ve sayılarını taşır; doğum tarihin gizli kalır.</p>
+          <div class="share-actions">
+            <button class="btn ghost" type="button" id="kopyala-tek">Linki kopyala</button>
+            <button class="btn ghost" type="button" id="paylas-tek" hidden>Paylaş</button>
+            <button class="btn ghost" type="button" id="png-tek">Kartı indir (PNG)</button>
+          </div>
+          <p class="status" id="durum-tek" role="status"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tarot" aria-labelledby="tarot-baslik">
+      <div class="tarot-head">
+        <h2 id="tarot-baslik">Tarot kartların</h2>
+        <div class="deck-switch" role="group" aria-label="Deste seçimi">
+          <button type="button" data-deck="cizim" aria-pressed="true">Çizim deste</button>
+          <button type="button" data-deck="orijinal" aria-pressed="false">Orijinal deste (1909)</button>
+        </div>
+      </div>
+      <div class="tarot-cards" id="r-kartlar"></div>
+    </div>
+  </section>
+
+  <!-- Uyum: iki ad, tek halı, düet -->
+  <section class="duo" id="uyum" aria-labelledby="uyum-baslik">
+    <div class="duo-intro">
+      <h2 id="uyum-baslik">Uyum</h2>
+      <p class="lede">İki adı ve iki doğum tarihini yaz. İki melodi önce sırayla, sonra el ele birlikte çalsın; iki halı tek bir halıda birleşsin.</p>
+    </div>
+    <form class="ask duo-form" id="form-uyum" novalidate>
+      <fieldset>
+        <legend class="hand">Birinci kişi</legend>
+        <label>Ad <input id="ad1" autocomplete="off" maxlength="40" required></label>
+        <label>Doğum tarihi <input id="tarih1" type="date" required min="1900-01-01"></label>
+      </fieldset>
+      <fieldset>
+        <legend class="hand">İkinci kişi</legend>
+        <label>Ad <input id="ad2" autocomplete="off" maxlength="40" required></label>
+        <label>Doğum tarihi <input id="tarih2" type="date" required min="1900-01-01"></label>
+      </fieldset>
+      <button class="btn" type="submit">Uyumumuzu dokur</button>
+      <p class="form-error" id="hata-uyum" role="alert"></p>
+    </form>
+
+    <div class="duo-result" id="uyum-sonuc" hidden>
+      <div class="duo-loom"><canvas id="u-kilim" role="img"></canvas></div>
+      <div class="duo-text">
+        <h3 id="u-adlar"></h3>
+        <p class="hand duo-title" id="u-baslik"></p>
+        <p id="u-yorum"></p>
+        <div class="duo-nums" id="u-sayilar"></div>
+        <div class="player">
+          <button class="seal" id="cal-uyum" type="button" aria-pressed="false" aria-label="Düeti çal">
+            <svg class="swirl" viewBox="-100 -100 200 200" aria-hidden="true"></svg>
+            <svg class="moon" viewBox="-12 -12 24 24" aria-hidden="true"><path fill="currentColor" d="M3-8A9 9 0 1 0 3 8 7 7 0 1 1 3-8Z"/></svg>
+            <span class="label">ÇAL</span>
+          </button>
+          <div class="player-info">
+            <p class="letters hand" id="u-harfler-a" aria-hidden="true"></p>
+            <p class="letters hand" id="u-harfler-b" aria-hidden="true"></p>
+            <p class="section-name hand" id="u-bolum" aria-live="polite">&nbsp;</p>
+            <p class="music-info" id="u-muzik"></p>
+          </div>
+        </div>
+        <div class="share-actions">
+          <button class="btn ghost" type="button" id="kopyala-uyum">Linki kopyala</button>
+          <p class="status" id="durum-uyum" role="status"></p>
+        </div>
+      </div>
+      <div class="duo-card">
+        <h3>İlişki kartınız</h3>
+        <div class="duo-card-row">
+          <div class="card-art" id="u-kart"></div>
+          <div>
+            <p class="card-name" id="u-kart-ad"></p>
+            <p class="keywords" id="u-kart-anahtar"></p>
+            <p id="u-kart-yorum"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rehber: 22 kart -->
+  <section class="guide" id="rehber" aria-labelledby="rehber-baslik">
+    <div class="tarot-head">
+      <div>
+        <h2 id="rehber-baslik">Büyük Arkana</h2>
+        <p class="lede">Yirmi iki kartın her birine dokun; anlamını ve ilişkideki yorumunu oku.</p>
+      </div>
+      <div class="deck-switch" role="group" aria-label="Deste seçimi">
+        <button type="button" data-deck="cizim" aria-pressed="true">Çizim deste</button>
+        <button type="button" data-deck="orijinal" aria-pressed="false">Orijinal deste (1909)</button>
+      </div>
+    </div>
+    <ul class="guide-grid" id="rehber-kartlar"></ul>
+  </section>
+</main>
+
+<dialog class="card-dialog" id="kart-penceresi" aria-labelledby="kp-ad">
+  <div class="dialog-body">
+    <div class="card-art" id="kp-resim"></div>
+    <div>
+      <p class="hand" id="kp-numara"></p>
+      <h3 id="kp-ad"></h3>
+      <p class="keywords" id="kp-anahtar"></p>
+      <h4>Anlamı</h4>
+      <p id="kp-anlam"></p>
+      <h4>İlişkide</h4>
+      <p id="kp-iliski"></p>
+    </div>
+  </div>
+  <form method="dialog"><button class="btn ghost" type="submit">Kapat</button></form>
+</dialog>
+
+<footer class="foot">
+  <p class="foot-name">İsmin Melodisi</p>
+  <p>Tarot ve numeroloji eğlence ve kendini düşünme amaçlıdır; bilimsel bir yöntem değildir.</p>
+  <p class="credits">Orijinal deste: Pamela Colman Smith'in 1909 tarihli Rider–Waite–Smith çizimleri, kamu malı, <a href="https://commons.wikimedia.org/w/index.php?search=%22RWS+Tarot%22&amp;title=Special:MediaSearch&amp;type=image">Wikimedia Commons</a>. Çizim deste, halılar ve müzik bu site için kodla üretildi.</p>
+</footer>
+</body>
+</html>

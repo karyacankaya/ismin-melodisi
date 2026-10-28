@@ -1,0 +1,330 @@
+/* İsmin Melodisi — "Gece Defteri": boyalı gece göğü, altın yaldız, parşömen kâğıt.
+   Mobil önce yazıldı; geniş ekran düzenleri en alttaki medya sorgularında. */
+
+:root {
+  --night: #0f1838;
+  --night-2: #1b2d5c;
+  --night-ink: #0a1130;
+  --fresco: #2f4fb0;
+  --gold: #d4a648;
+  --gold-hi: #f2d68c;
+  --paper: #f3ece0;
+  --paper-2: #e9dfcb;
+  --ink: #1e1b18;
+  --ink-soft: #5a5148;
+  --sky-text: #e9e4f2;
+  --sky-soft: #c9c6dd;
+  --rose: #d98fa8;
+  --danger: #ffb4a8;
+
+  --display: 'Cormorant Garamond', Georgia, serif;
+  --hand: 'Caveat', 'Comic Sans MS', cursive;
+  --text: 'EB Garamond', Georgia, serif;
+  --caps: 'Cinzel', 'Cormorant Garamond', serif;
+
+  --gutter: 16px;
+  --radius: 14px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--sky-text);
+  font: 1.0625rem/1.55 var(--text);
+  background-color: var(--night);
+}
+/* Boyalı gece: yumuşak bulutlar + iki katman yıldız tozu. Ayrı bir sabit katmanda,
+   çünkü iOS Safari background-attachment: fixed desteklemiyor. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20% 30%, rgba(242, 214, 140, .9), transparent 60%),
+    radial-gradient(1px 1px at 70% 80%, rgba(255, 255, 255, .7), transparent 60%),
+    radial-gradient(1px 1px at 40% 60%, rgba(255, 255, 255, .5), transparent 60%),
+    radial-gradient(1.2px 1.2px at 85% 15%, rgba(242, 214, 140, .7), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 15% 10%, rgba(47, 79, 176, .5), transparent 70%),
+    radial-gradient(ellipse 50% 45% at 90% 55%, rgba(138, 107, 176, .18), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(63, 120, 140, .25), transparent 70%),
+    linear-gradient(180deg, var(--night) 0%, var(--night-2) 100%);
+  background-size: 180px 180px, 240px 240px, 130px 130px, 310px 310px, auto, auto, auto, auto;
+}
+img, svg, canvas { display: block; max-width: 100%; }
+a { color: var(--gold-hi); }
+button, input { font: inherit; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--gold); color: var(--night); }
+
+.skip {
+  position: absolute; left: 12px; top: -60px; z-index: 10; padding: 10px 14px; border-radius: 8px;
+  background: var(--gold-hi); color: var(--night); font-weight: 600; text-decoration: none;
+}
+.skip:focus { top: 12px; }
+
+.hand { font-family: var(--hand); }
+
+/* --- Üst çubuk --- */
+.bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  max-width: 1180px; margin: 0 auto; padding: 18px var(--gutter);
+}
+.wordmark {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--gold-hi); text-decoration: none;
+  font: 600 1.15rem var(--display); letter-spacing: .02em; white-space: nowrap;
+}
+.wordmark svg { width: 20px; height: 20px; }
+.bar nav { display: flex; gap: 4px; }
+.bar nav a {
+  display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; justify-content: center;
+  color: var(--sky-text); text-decoration: none; font: 500 1.05rem var(--display);
+  padding: 6px 8px; border-radius: 999px; transition: color .2s, background-color .2s;
+}
+.bar nav a:hover { color: var(--gold-hi); background: rgba(242, 214, 140, .08); }
+
+main { max-width: 1180px; margin: 0 auto; padding: 0 max(var(--gutter), env(safe-area-inset-right)) 0 max(var(--gutter), env(safe-area-inset-left)); }
+section { scroll-margin-top: 16px; }
+
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 600; margin: 0; line-height: 1.05; }
+h2 { font-size: clamp(2.2rem, 7vw, 3.4rem); color: var(--gold-hi); letter-spacing: -.01em; }
+.lede { margin: 12px 0 0; max-width: 34rem; font-size: 1.15rem; color: var(--sky-soft); }
+
+/* --- Giriş --- */
+.hero { display: grid; gap: 28px; padding: 24px 0 72px; align-items: center; }
+.hero-hand { margin: 0; color: var(--gold-hi); font-size: 1.6rem; transform: rotate(-2deg); transform-origin: left; }
+h1 {
+  font-size: clamp(3.2rem, 14vw, 6.4rem); letter-spacing: -.02em; line-height: .95; margin: 6px 0 4px;
+  color: var(--gold-hi);
+  background: linear-gradient(100deg, #b98a2e 10%, var(--gold-hi) 45%, #c99a3c 70%, var(--gold-hi) 95%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.note { margin: 14px 0 0; font: 1.15rem var(--hand); color: var(--sky-soft); }
+
+.ask { display: grid; gap: 12px; margin-top: 28px; }
+.ask label { display: grid; gap: 4px; font: 1.3rem var(--hand); color: var(--gold-hi); }
+.ask input {
+  width: 100%; min-height: 48px; padding: 10px 14px; border-radius: 12px; font: 1.1rem var(--text);
+  color: var(--paper); background: rgba(10, 17, 48, .72); border: 1px solid rgba(242, 214, 140, .32);
+  transition: border-color .2s, background-color .2s;
+}
+.ask input:hover { border-color: rgba(242, 214, 140, .55); }
+/* iOS tarih kutusu: yazı ortalanmasın, kutu yüksekliği korunsun */
+.ask input[type="date"] { display: block; -webkit-appearance: none; appearance: none; }
+.ask input[type="date"]::-webkit-date-and-time-value { text-align: left; }
+.ask input:focus-visible { outline-offset: 1px; border-color: var(--gold-hi); }
+.ask input[aria-invalid="true"] { border-color: var(--danger); }
+.form-error { margin: 0; min-height: 1.4em; color: var(--danger); font-size: 1rem; }
+.form-error:empty { min-height: 0; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px;
+  padding: 10px 22px; border: 0; border-radius: 999px; cursor: pointer;
+  font: 600 1.15rem var(--display); letter-spacing: .03em; color: var(--night);
+  background: linear-gradient(180deg, var(--gold-hi), var(--gold));
+  transition: transform .15s var(--ease), filter .2s;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn:active { transform: translateY(1px) scale(.98); }
+.btn.ghost {
+  color: var(--gold-hi); background: rgba(10, 17, 48, .55); min-height: 44px; padding: 8px 18px;
+  font-size: 1.05rem; box-shadow: inset 0 0 0 1px rgba(242, 214, 140, .45);
+}
+.btn.ghost:hover { background: rgba(242, 214, 140, .12); filter: none; }
+
+.hero-loom { margin: 0; display: grid; justify-items: center; gap: 8px; }
+.hero-loom canvas { width: min(100%, 380px); aspect-ratio: 3 / 4.4; }
+.hero-loom figcaption { color: var(--sky-soft); font-size: 1.25rem; text-align: center; }
+
+/* --- Sonuç --- */
+.result { padding: 24px 0 48px; }
+.result-grid { display: grid; gap: 28px; margin-top: 24px; }
+
+/* Defter sayfası: 4:5 sonuç kartı */
+.page {
+  width: min(100%, 460px); aspect-ratio: 4 / 5; justify-self: center;
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto auto; gap: 10px;
+  padding: 18px 20px 12px; color: var(--ink); border-radius: 4px;
+  background:
+    radial-gradient(ellipse at 30% 0%, rgba(255, 255, 255, .5), transparent 60%),
+    radial-gradient(ellipse at 100% 100%, rgba(180, 150, 110, .18), transparent 55%),
+    var(--paper);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .45), inset 0 0 40px rgba(160, 130, 90, .15);
+  transform: rotate(-.6deg);
+}
+.page-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding-bottom: 6px; box-shadow: 0 1px 0 rgba(30, 27, 24, .22); }
+.page-head h3 { font: 600 clamp(1.4rem, 6vw, 2rem)/1 var(--display); letter-spacing: .06em; overflow-wrap: anywhere; }
+.page-head .theme { margin: 0; font-size: 1.55rem; color: #8a5a1c; transform: rotate(-3deg); white-space: nowrap; }
+.loom { min-height: 0; position: relative; }
+.loom canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.nums { display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; gap: 4px; }
+.nums b { display: block; font: 600 clamp(1.5rem, 6vw, 2rem)/1 var(--display); }
+.nums span { display: block; font: 600 .8125rem/1.2 var(--text); margin-top: 3px; }
+.nums i { display: block; font: .95rem/1 var(--hand); color: var(--ink-soft); font-style: normal; }
+.reading { margin: 0; font-size: .8125rem; line-height: 1.36; color: #2b2622; }
+.page-foot { margin: 0; display: flex; justify-content: space-between; gap: 8px; font-size: .8125rem; color: var(--ink-soft); }
+.page-foot .hand { font-size: .9rem; }
+
+.panel { display: grid; gap: 24px; align-content: start; }
+.player { display: flex; align-items: center; gap: 20px; }
+.player-info { min-width: 0; display: grid; gap: 4px; }
+.letters { margin: 0; font-size: clamp(1.5rem, 6vw, 1.9rem); color: var(--sky-soft); line-height: 1.15; }
+.letters .word { white-space: nowrap; letter-spacing: .1em; }
+.letters span { transition: color .12s, text-shadow .12s; }
+.letters span.on { color: var(--gold-hi); text-shadow: 0 0 12px rgba(242, 214, 140, .8); }
+.letters .who { font-size: 1.1rem; letter-spacing: 0; color: var(--rose); margin-right: 6px; }
+.section-name { margin: 0; font-size: 1.45rem; color: var(--rose); min-height: 1.5em; }
+.music-info { margin: 0; color: var(--sky-soft); font-size: 1rem; }
+.check { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 1.02rem; }
+.check input { width: 20px; height: 20px; accent-color: var(--gold); }
+
+/* Mühür mumu "Çal" düğmesi */
+.seal {
+  position: relative; flex: none; width: 116px; height: 116px; border-radius: 50%; border: 0; cursor: pointer;
+  display: grid; place-items: center; color: var(--gold-hi);
+  background: radial-gradient(circle at 35% 30%, #3a58b8, #1a2c66 55%, #0f1a44 100%);
+  box-shadow: inset 0 -6px 14px rgba(0, 0, 0, .45), inset 0 4px 10px rgba(255, 255, 255, .12), 0 10px 30px rgba(0, 0, 0, .5);
+  transition: transform .18s var(--ease);
+}
+.seal:hover { transform: scale(1.04); }
+.seal:active { transform: scale(.97); }
+.seal::before { content: ''; position: absolute; inset: 8px; border-radius: 50%; border: 1.5px dashed rgba(242, 214, 140, .55); }
+.seal .label { position: absolute; bottom: 19px; font: 600 .95rem var(--display); letter-spacing: .2em; }
+.seal svg.moon { width: 40px; height: 40px; margin-top: -12px; filter: drop-shadow(0 0 6px rgba(242, 214, 140, .6)); }
+.swirl { position: absolute; inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); max-width: none; opacity: 0; transition: opacity .8s; pointer-events: none; }
+.seal[aria-pressed="true"] .swirl { opacity: .9; animation: spin 24s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.share { display: grid; gap: 10px; padding: 18px; border-radius: var(--radius); background: rgba(10, 17, 48, .5); }
+.share h3 { font-size: 1.6rem; color: var(--gold-hi); }
+.hint { margin: 0; font-size: .98rem; color: var(--sky-soft); }
+.share-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.status { margin: 0; min-height: 1.4em; color: var(--gold-hi); font-size: 1rem; }
+
+/* --- Tarot --- */
+.tarot { margin-top: 72px; }
+.tarot-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+.deck-switch {
+  display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px;
+  background: rgba(10, 17, 48, .65); box-shadow: inset 0 0 0 1px rgba(212, 166, 72, .4);
+}
+.deck-switch button {
+  font: 600 1rem var(--display); letter-spacing: .03em; color: var(--gold-hi); background: none;
+  border: 0; border-radius: 999px; padding: 9px 14px; min-height: 44px; cursor: pointer; transition: background-color .2s, color .2s;
+}
+.deck-switch button:hover { background: rgba(242, 214, 140, .1); }
+.deck-switch button[aria-pressed="true"] { background: linear-gradient(180deg, var(--gold-hi), var(--gold)); color: var(--night); }
+
+.tarot-cards { display: grid; gap: 36px; }
+.tarot-card { display: grid; grid-template-columns: minmax(0, 140px) minmax(0, 1fr); gap: 18px; align-items: start; }
+.card-art svg { width: 100%; height: auto; filter: drop-shadow(0 12px 24px rgba(0, 0, 0, .5)); }
+.tarot-card .role { margin: 0; font: 1.35rem var(--hand); color: var(--rose); }
+.card-name { margin: 2px 0 0; font: 600 1.7rem/1.1 var(--display); color: var(--gold-hi); }
+.keywords { margin: 4px 0 8px; font-style: italic; color: var(--sky-soft); }
+.tarot-card p { margin-top: 0; }
+.year-step { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; }
+.year-step button {
+  width: 44px; height: 44px; border-radius: 50%; border: 0; cursor: pointer; font-size: 1.2rem;
+  color: var(--gold-hi); background: rgba(10, 17, 48, .6); box-shadow: inset 0 0 0 1px rgba(242, 214, 140, .4);
+}
+.year-step button:hover { background: rgba(242, 214, 140, .14); }
+.year-step output { min-width: 3.5em; text-align: center; font: 600 1.2rem var(--display); }
+
+/* --- Uyum --- */
+.duo { padding: 48px 0 72px; }
+.duo-form { margin-top: 24px; max-width: 760px; }
+.duo-form fieldset { margin: 0; padding: 14px; border: 0; border-radius: var(--radius); background: rgba(10, 17, 48, .45); display: grid; gap: 10px; }
+.duo-form legend { padding: 0 4px; font-size: 1.4rem; color: var(--rose); float: left; width: 100%; }
+.duo-result { display: grid; gap: 32px; margin-top: 40px; }
+.duo-loom canvas { width: min(100%, 520px); aspect-ratio: 1 / 1; margin: 0 auto; }
+.duo-text h3 { font-size: clamp(2rem, 7vw, 2.8rem); color: var(--paper); }
+.duo-title { margin: 4px 0 8px; font-size: 1.8rem; color: var(--gold-hi); }
+.duo-text > p { max-width: 36rem; }
+.duo-nums { display: grid; gap: 6px; margin: 16px 0 24px; font-size: 1rem; color: var(--sky-soft); }
+.duo-nums p { margin: 0; }
+.duo-nums b { color: var(--paper); font-family: var(--display); font-size: 1.15rem; }
+.duo-text .player { margin-bottom: 18px; }
+.duo-card { padding: 20px; border-radius: var(--radius); background: rgba(10, 17, 48, .5); }
+.duo-card h3 { font-size: 1.7rem; color: var(--gold-hi); margin-bottom: 16px; }
+.duo-card-row { display: grid; grid-template-columns: minmax(0, 150px) minmax(0, 1fr); gap: 18px; align-items: start; }
+
+/* --- Rehber --- */
+.guide { padding: 48px 0 72px; }
+.guide-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.guide-grid button {
+  width: 100%; padding: 0; border: 0; background: none; cursor: pointer; border-radius: 12px;
+  transition: transform .2s var(--ease);
+}
+.guide-grid button:hover { transform: translateY(-4px) rotate(-.6deg); }
+.guide-grid button:active { transform: translateY(-1px) scale(.98); }
+
+.card-dialog {
+  width: min(92vw, 720px); max-height: 88dvh; overflow-y: auto; overscroll-behavior: contain; padding: 22px; border: 0; border-radius: 16px;
+  color: var(--ink); background: var(--paper); box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
+}
+.card-dialog::backdrop { background: rgba(5, 8, 24, .72); }
+.dialog-body { display: grid; gap: 18px; }
+.dialog-body .card-art { width: min(200px, 60vw); margin: 0 auto; }
+.card-dialog h3 { font-size: 2.2rem; }
+.card-dialog h4 { margin: 14px 0 4px; font-size: 1.3rem; color: #6a4416; }
+.card-dialog p { margin: 0; }
+.card-dialog .keywords { color: var(--ink-soft); }
+.card-dialog #kp-numara { font-size: 1.3rem; color: #8a5a1c; margin: 0; }
+.card-dialog form { margin-top: 18px; text-align: right; }
+.card-dialog .btn.ghost { color: var(--ink); background: var(--paper-2); box-shadow: none; }
+
+/* --- Alt bilgi --- */
+.foot { max-width: 1180px; margin: 0 auto; padding: 48px var(--gutter) 56px; color: var(--sky-soft); }
+.foot-name {
+  margin: 0 0 12px; font: 600 clamp(2.6rem, 11vw, 6rem)/1 var(--display); color: var(--gold-hi); letter-spacing: -.02em;
+}
+.foot p { max-width: 38rem; }
+.credits { font-size: .95rem; }
+
+/* --- Görünme hareketi (yalnızca hareket açıkken) --- */
+@media (prefers-reduced-motion: no-preference) {
+  .rise { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: var(--delay, 0ms); }
+  .rise.in { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .seal[aria-pressed="true"] .swirl { animation: none; }
+  .letters span, .btn, .seal, .guide-grid button { transition: none; }
+}
+
+/* --- Geniş ekranlar --- */
+@media (min-width: 640px) {
+  :root { --gutter: 28px; }
+  .ask:not(.duo-form) { grid-template-columns: 1fr 1fr; align-items: end; }
+  .ask:not(.duo-form) .btn, .ask:not(.duo-form) .form-error { grid-column: 1 / -1; }
+  .duo-form { grid-template-columns: 1fr 1fr; }
+  .duo-form .btn, .duo-form .form-error { grid-column: 1 / -1; justify-self: start; }
+  .guide-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .tarot-card { grid-template-columns: minmax(0, 180px) minmax(0, 1fr); gap: 24px; }
+  .dialog-body { grid-template-columns: 220px 1fr; align-items: start; }
+}
+@media (min-width: 960px) {
+  :root { --gutter: 32px; }
+  .result { padding-bottom: 96px; }
+  .duo, .guide { padding: 96px 0 120px; }
+  .duo { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); column-gap: 48px; align-items: start; }
+  .duo-form { margin-top: 0; max-width: none; }
+  .duo-result { grid-column: 1 / -1; }
+  .hero { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 48px; min-height: calc(100vh - 80px); padding-bottom: 96px; }
+  .hero-loom canvas { width: 100%; max-width: 420px; }
+  .result-grid { grid-template-columns: minmax(0, 460px) minmax(0, 1fr); gap: 56px; align-items: center; }
+  .tarot-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+  .tarot-card { grid-template-columns: 1fr; }
+  .tarot-card .card-art { width: min(100%, 240px); }
+  .duo-result { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 48px; }
+  .duo-card { grid-column: 1 / -1; }
+  .duo-card-row { grid-template-columns: 200px minmax(0, 1fr); gap: 32px; }
+  .guide-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}

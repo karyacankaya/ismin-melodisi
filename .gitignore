@@ -1,0 +1,6 @@
+.taste-skill/
+.DS_Store
+# geliştirme araçları: sitenin parçası değil
+.agents/
+.claude/
+skills-lock.json
